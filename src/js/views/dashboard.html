@@ -1,0 +1,11 @@
+<oj-table id='t1' aria-label='Employees Table' data='[[datasource]]' as='cell' columns='{{columnArray}}'
+  columns-default='{"template": "cellTemplate", "headerTemplate": "headerTemplate"}' style='width: 100%;'>
+  <template slot="cellTemplate">
+    <oj-bind-text value="[[cell.data]]"></oj-bind-text>
+  </template>
+  <template slot="headerTemplate" data-oj-as="header">
+    <oj-bind-text value="[[header.data]]"></oj-bind-text>
+  </template>
+  <oj-paging-control id="p1" data="[[datasource]]" page-size="10" slot="bottom">
+  </oj-paging-control>
+</oj-table>
