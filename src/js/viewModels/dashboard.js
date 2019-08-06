@@ -6,11 +6,14 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataproviderview', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol'],
- function(ko, CollectionDataProvider, PagingDataProvider) {
+define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataproviderview', 'viewModels/helpers/converterHelper', 
+        'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol'],
+ function(ko, CollectionDataProvider, PagingDataProvider, converterHelperModule) {
 
     function DashboardViewModel() {
       var self = this;
+
+      self.converterHelper = converterHelperModule;
 
       self.serviceURL = 'http://138.68.79.219:7001/rsrestapp/rest/1/Employees';
       self.pagingDatasource = ko.observable();
@@ -41,7 +44,8 @@ define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataprovidervie
       },
       {
         "headerText": "Salary",
-        "field": "Salary"
+        "field": "Salary",
+        "template": "amountTemplate"
       },
       {
         "headerText": "Department ID",
