@@ -6,9 +6,9 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataproviderview', 'viewModels/helpers/converterHelper', 
-        'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol'],
- function(ko, CollectionDataProvider, PagingDataProvider, converterHelperModule) {
+define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataproviderview', 'viewModels/helpers/converterHelper',
+  'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojtoolbar'],
+  function (ko, CollectionDataProvider, PagingDataProvider, converterHelperModule) {
 
     function DashboardViewModel() {
       var self = this;
@@ -74,6 +74,33 @@ define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataprovidervie
       self.employeesList = self.createEmployeesCollection();
       self.datasource = new PagingDataProvider(new CollectionDataProvider(self.employeesList));
 
+      var worker;
+      if (typeof (Worker) !== "undefined") {
+        worker = new Worker("js/worker.js");
+      }
+
+      self.longAction = function (e) {
+        worker.postMessage('long task started');
+      }
+
+      worker.onmessage = function (event) {
+        console.log(event.data);
+      };
+
+      // function sleep(miliseconds) {
+      //   var currentTime = new Date().getTime();
+
+      //   var i = 0;
+      //   while (currentTime + miliseconds >= new Date().getTime()) {
+      //     i++;
+      //     if (i % 1000000 === 0) {
+      //       console.log('rows processed: ' + i);
+      //     }
+      //   }
+      // }
+
+      // sleep(10000);
+
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
 
@@ -85,14 +112,14 @@ define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataprovidervie
        * and inserted into the DOM and after the View is reconnected
        * after being disconnected.
        */
-      self.connected = function() {
+      self.connected = function () {
         // Implement if needed
       };
 
       /**
        * Optional ViewModel method invoked after the View is disconnected from the DOM.
        */
-      self.disconnected = function() {
+      self.disconnected = function () {
         // Implement if needed
       };
 
@@ -100,7 +127,7 @@ define(['knockout', 'ojs/ojcollectiondataprovider', 'ojs/ojpagingdataprovidervie
        * Optional ViewModel method invoked after transition to the new View is complete.
        * That includes any possible animation between the old and the new View.
        */
-      self.transitionCompleted = function() {
+      self.transitionCompleted = function () {
         // Implement if needed
       };
     }
