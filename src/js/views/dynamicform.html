@@ -1,0 +1,22 @@
+<oj-form-layout id="ofl1" max-columns="3">
+  <oj-bind-for-each data="[[dynamicFormDataProvider]]">
+    <template>
+      <oj-bind-if test="[[$current.data.fieldType === 'inputText']]">
+        <oj-input-text :id="[[$current.observableIndex]]" label-hint="[[$current.data.label]]"
+          value="{{$current.data.value}}" label-edge="inside" style="width: 20em;">
+        </oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test="[[$current.data.fieldType === 'inputNumber']]">
+        <oj-input-number :id="[[$current.observableIndex]]" label-hint="[[$current.data.label]]"
+          value="{{$current.data.value}}" label-edge="inside" style="width: 20em;">
+        </oj-input-number>
+      </oj-bind-if>
+      <oj-bind-if test="[[$current.data.fieldType === 'inputDate']]">
+        <oj-input-date :id="[[$current.observableIndex]]" label-hint="[[$current.data.label]]"
+          value="{{$current.data.value}}" label-edge="inside" style="width: 20em;">
+        </oj-input-date>
+      </oj-bind-if>
+    </template>
+  </oj-bind-for-each>
+</oj-form-layout>
+<oj-button id='b1' on-oj-action='[[applyCall]]'>Apply</oj-button>
